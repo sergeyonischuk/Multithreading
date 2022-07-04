@@ -1,17 +1,14 @@
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Timer timer = new Timer();
-        Messenger messenger = new Messenger();
+        Object MONITOR = new Object();
+        Timer timer = new Timer(MONITOR);
+        Messenger messenger = new Messenger(MONITOR);
         Thread thread = new Thread(timer);
         Thread thread2 = new Thread(messenger);
         thread.start();
         thread2.start();
-        System.out.println(thread2.getState());
-        Thread.sleep(1500);
-        System.out.println(thread2.getState());
-        Thread.sleep(6000);
-        System.out.println(thread2.getState());
-        Thread.sleep(15000);
+        Thread.sleep(3000);
+        System.out.println(thread.getState());
         System.out.println(thread2.getState());
     }
 }

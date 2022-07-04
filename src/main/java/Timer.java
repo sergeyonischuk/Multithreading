@@ -1,27 +1,31 @@
 public class Timer implements Runnable {
     private int secondsLeft = 0;
+    private final Object MONITOR;
+
+    public Timer(Object MONITOR) {
+        this.MONITOR = MONITOR;
+    }
 
     @Override
     public void run() {
         for (int i = 0; i < 50; i++) {
-            try {
-                synchronized (Messenger.class) {
+            synchronized (MONITOR) {
+                try {
                     increment();
-                    Messenger.class.notifyAll();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (secondsLeft == 5) {
+                    notifyAll();
+                }
             }
         }
     }
 
     synchronized public void increment() throws InterruptedException {
         Thread.sleep(1000);
-
         secondsLeft++;
         System.out.println(secondsLeft + " seconds left");
-        System.out.println(secondsLeft);
-
     }
 
 }
