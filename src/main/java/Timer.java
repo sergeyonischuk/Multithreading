@@ -16,7 +16,12 @@ public class Timer implements Runnable {
                     e.printStackTrace();
                 }
                 if (secondsLeft == 5) {
-                    notifyAll();
+                    try {
+                        MONITOR.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    MONITOR.notifyAll();
                 }
             }
         }

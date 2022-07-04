@@ -9,14 +9,14 @@ public class Messenger implements Runnable {
     synchronized public void run() {
         while (true) {
             synchronized (MONITOR) {
+                System.out.println("test message");
                 try {
                     wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                MONITOR.notifyAll();
             }
-            String message = "test message";
-            System.out.println(message);
         }
     }
 }
