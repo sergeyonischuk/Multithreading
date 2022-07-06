@@ -9,7 +9,7 @@ public class Main {
         Runnable printFizz = () -> System.out.println("fizz");
         Runnable printBuzz = () -> System.out.println("buzz");
         Runnable printFizzBuzz = () -> System.out.println("fizzbuzz");
-        IntConsumer printNumber = number -> System.out.println(number);
+        IntConsumer printNumber = System.out::println;
 
         Thread threadA = new Thread(() -> {
             try {
